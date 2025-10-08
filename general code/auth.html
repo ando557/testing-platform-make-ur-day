@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аутентификация - Make Your Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-white">
+    <div class="background-container"></div>
+    
+    <header id="main-header" class="absolute top-0 left-0 right-0 p-4 z-20"></header>
+
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-4 z-10">
+        <div class="glass-card w-full max-w-md animate-fade-in-up">
+            <h1 id="form-title" class="text-3xl font-bold text-center mb-2 text-transparent bg-clip-text main-gradient-text" data-key="authTitleRegister">
+                Создать Аккаунт
+            </h1>
+            <p id="form-subtitle" class="text-slate-400 text-center mb-8" data-key="authSubtitleRegister">Присоединяйся к нам!</p>
+
+            <form id="auth-form" class="space-y-6">
+                <div>
+                    <label for="nickname" class="block text-sm font-medium text-slate-300" data-key="authNicknameLabel">Никнейм</label>
+                    <input type="text" id="nickname" name="nickname" required
+                           class="mt-1 block w-full premium-input">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-300" data-key="authPasswordLabel">Пароль</label>
+                    <input type="password" id="password" name="password" required
+                           class="mt-1 block w-full premium-input">
+                </div>
+                <div id="error-message" class="text-red-400 text-sm text-center hidden"></div>
+                <div>
+                    <button type="submit" id="submit-btn" class="premium-button w-full flex justify-center" data-key="authSubmitRegister">
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </form>
+             <div class="mt-6 text-center">
+                <p id="toggle-mode" class="text-sm text-slate-400" data-key="authToggleToLogin">
+                    Уже есть аккаунт? <a href="auth.html?mode=login" class="font-medium text-pink-400 hover:text-pink-300">Войти</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="music-player" class="fixed bottom-4 right-4 z-30">
+        <button id="music-toggle-btn" class="glass-card-footer p-3 rounded-full hover:bg-slate-700/80 transition-colors shadow-lg">
+            <i data-lucide="play" class="w-6 h-6"></i>
+        </button>
+        <audio id="lofi-audio" loop src="../audio/lofi.mp3"></audio>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('auth-form');
+            const errorMessage = document.getElementById('error-message');
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode') || 'register';
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                errorMessage.classList.add('hidden');
+
+                const nickname = document.getElementById('nickname').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!nickname || !password) { showError('Все поля обязательны!'); return; }
+                if (password.length < 4) { showError('Пароль должен содержать минимум 4 символа!'); return; }
+                
+                const usersDB = JSON.parse(localStorage.getItem('makeYourDayUsers')) || {};
+
+                if (mode === 'register') {
+                    if (usersDB[nickname]) {
+                        showError('Пользователь с таким ником уже существует!');
+                    } else {
+                        usersDB[nickname] = {
+                            password: password, plan: 'free', lang: 'ru', favorites: [],
+                            theme: 'default', quotesViewed: 0,
+                            avatar: './images/default-avatar.png', bio: '',
+                            usage: { date: new Date().toISOString().split('T')[0], count: 0 },
+                            createdAt: new Date().toISOString()
+                        };
+                        localStorage.setItem('makeYourDayUsers', JSON.stringify(usersDB));
+                        localStorage.setItem('makeYourDayCurrentUser', nickname);
+                        window.location.href = 'index.html';
+                    }
+                } else { // login
+                    const user = usersDB[nickname];
+                    if (user && user.password === password) {
+                        localStorage.setItem('makeYourDayCurrentUser', nickname);
+                        window.location.href = 'index.html';
+                    } else {
+                        showError(user ? 'Неверный пароль.' : 'Пользователь с таким ником не найден.');
+                    }
+                }
+            });
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

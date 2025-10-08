@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный Кабинет - Make Your Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/rating.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-white">
+    <div class="background-container"></div>
+
+    <header id="main-header" class="absolute top-0 left-0 right-0 p-4 z-20"></header>
+
+    <div class="relative min-h-screen flex flex-col items-center p-4 z-10">
+        <div class="w-full max-w-6xl mx-auto flex flex-col items-center flex-grow pt-24 md:pt-32">
+            
+            <header class="text-center mb-8 animate-fade-in-down">
+                <h1 class="main-title text-4xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text main-gradient-text" data-key="accountTitle">
+                    Личный Кабинет
+                </h1>
+                <p id="welcome-message" class="text-lg text-slate-400 mt-2">Добро пожаловать, ...</p>
+            </header>
+
+            <main class="w-full grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in-up">
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="glass-card p-6 flex flex-col items-center">
+                        <h2 class="text-2xl font-bold mb-4 self-start" data-key="profileHeader">Профиль</h2>
+                        <div class="relative group mb-4">
+                            <img id="profile-avatar" src="./images/default-avatar.png" class="w-32 h-32 rounded-full object-cover border-4 border-slate-700 group-hover:border-pink-500 transition-all duration-300">
+                            <label for="avatar-upload" class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
+                                <i data-lucide="camera" class="w-8 h-8 text-white"></i>
+                            </label>
+                            <input type="file" id="avatar-upload" class="hidden" accept="image/*">
+                        </div>
+                        <p><strong data-key="nicknameLabel">Никнейм:</strong> <span id="user-nickname" class="font-light"></span></p>
+                        <p class="mt-1"><strong data-key="planLabel">План:</strong> <span id="user-plan" class="font-light uppercase"></span></p>
+                         <textarea id="user-bio" placeholder="Расскажите о себе..." class="premium-input w-full mt-4 h-24 resize-none" maxlength="150"></textarea>
+                         <button id="save-profile-btn" class="premium-button mt-4 w-full" data-key="saveProfileBtn">Сохранить</button>
+                         <a href="subscribe.html" class="premium-button mt-4 inline-block w-full text-center" data-key="changePlanBtn">
+                            Сменить План
+                         </a>
+                    </div>
+
+                    <div class="glass-card p-6">
+                        <h2 class="text-2xl font-bold mb-4" data-key="statsHeader">Статистика</h2>
+                        <p><strong data-key="quotesViewedLabel">Просмотрено цитат:</strong> <span id="quotes-viewed" class="font-light">0</span></p>
+                    </div>
+
+                    <div class="glass-card p-6">
+                         <h2 class="text-2xl font-bold mb-4" data-key="rateProjectHeader">Оцените Проект</h2>
+                         <p class="text-slate-400 mb-4" data-key="rateProjectText">Нам важно ваше мнение!</p>
+                         <button id="rate-project-btn" class="shine-button w-full bg-amber-500 text-slate-900 font-bold py-2 px-6 rounded-full" data-key="rateProjectBtn">Оценить</button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 glass-card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold" data-key="favoritesHeader">Избранные Цитаты</h2>
+                        <a href="favorites.html" class="text-sm text-pink-400 hover:underline" data-key="viewAllBtn">Смотреть все</a>
+                    </div>
+                    <div id="favorites-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-2">
+                    </div>
+                    <div id="no-favorites-message" class="hidden col-span-full text-center text-slate-400 py-10">
+                    </div>
+                </div>
+            </main>
+             <div class="mt-12 text-center">
+                <a href="index.html" class="text-slate-400 hover:text-white transition-colors" data-key="backToQuotes">&larr; Назад к цитатам</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="music-player" class="fixed bottom-4 right-4 z-30">
+        <button id="music-toggle-btn" class="glass-card-footer p-3 rounded-full hover:bg-slate-700/80 transition-colors shadow-lg">
+            <i data-lucide="play" class="w-6 h-6"></i>
+        </button>
+        <audio id="lofi-audio" loop src="../audio/lofi.mp3"></audio>
+    </div>
+
+
+
+    <div id="rating-modal" class="rating-modal-hidden">
+        <div class="rating-modal-content glass-card">
+            <button id="close-modal-btn" class="close-modal-btn">&times;</button>
+            <h2 class="text-2xl font-bold text-center mb-2" data-key="feedbackTitle">Оцените Приложение</h2>
+            <p class="text-slate-400 text-center mb-6" data-key="feedbackSubtitle">Ваш отзыв поможет нам стать лучше.</p>
+            
+            <form id="rating-form" class="space-y-4">
+                <div class="star-rating mb-4">
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 звезд"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 звезды"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 звезды"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 звезды"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 звезда"></label>
+                </div>
+                
+                <input type="hidden" name="user" id="rating-user">
+                <div id="rating-message" class="text-center min-h-[24px] pt-2"></div>
+                <button type="submit" class="premium-button w-full" data-key="feedbackSubmitBtn">Отправить Оценку</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="container mx-auto max-w-4xl glass-card-footer p-6">
+            <h3 class="text-xl font-bold mb-4" data-key="footerFollow">Follow Us</h3>
+            <div class="flex justify-center items-center gap-6 mb-6">
+                <a href="#" class="social-link" title="TikTok"><i data-lucide="music-4"></i></a>
+                <a href="#" class="social-link" title="Instagram"><i data-lucide="instagram"></i></a>
+                <a href="#" class="social-link" title="YouTube"><i data-lucide="youtube"></i></a>
+            </div>
+            <p class="text-sm text-slate-500">&copy; 2025 MakeYourDay. All Rights Reserved.</p>
+            <p class="text-xs text-slate-600 mt-2">Designed with passion for daily inspiration.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/rating.js"></script>
+</body>
+</html>

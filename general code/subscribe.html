@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - Make Your Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-white">
+    <div class="background-container"></div>
+    
+    <header id="main-header" class="absolute top-0 left-0 right-0 p-4 z-20"></header>
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-4 md:p-8 z-10 pt-28">
+        <header class="text-center mb-10 animate-fade-in-down">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text main-gradient-text" data-key="subHeaderTitle">
+                Choose Your Plan 
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 mt-2" data-key="subHeaderSubtitle">Unlock the full power of daily inspiration.</p>
+        </header>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+            <div id="plan-free" class="glass-card p-8 flex flex-col animate-fade-in-up" style="animation-delay: 0.2s;">
+                <h2 class="text-2xl font-bold text-cyan-400" data-key="planFreeTitle">Basic</h2>
+                <p class="text-4xl font-black my-4" data-key="planFreePrice">Free</p>
+                <p class="text-slate-400 mb-6" data-key="planFreeDesc">Start your journey with the essentials.</p>
+                <ul class="space-y-3 text-slate-300 flex-grow">
+                    <li class="flex items-center"><span class="text-cyan-400 mr-2">✔</span><span data-key="planFreeFeat1">3 random quotes per day</span></li>
+                    <li class="flex items-center"><span class="text-cyan-400 mr-2">✔</span><span data-key="planFreeFeat2">Standard categories</span></li>
+                    <li class="flex items-center"><span class="text-cyan-400 mr-2">✔</span><span data-key="planFreeFeat3">Text-only quotes</span></li>
+                </ul>
+                <button data-plan="free" class="subscribe-btn shine-button mt-8 w-full bg-cyan-600 text-white font-bold py-3 rounded-lg" data-key="subscribeBtn">Subscribe</button>
+            </div>
+            <div id="plan-premium" class="glass-card p-8 flex flex-col border-2 border-transparent animate-fade-in-up" style="animation-delay: 0.4s;">
+                <h2 class="text-2xl font-bold text-purple-500" data-key="planPremiumTitle">Premium</h2>
+                <p class="text-4xl font-black my-4">$5<span class="text-lg text-slate-400">/mo</span></p>
+                <p class="text-slate-400 mb-6" data-key="planPremiumDesc">For those who want more motivation.</p>
+                <ul class="space-y-3 text-slate-300 flex-grow">
+                     <li class="flex items-center"><span class="text-purple-500 mr-2">✔</span><span data-key="planPremiumFeat1">Up to 20 quotes per day</span></li>
+                    <li class="flex items-center"><span class="text-purple-500 mr-2">✔</span><span data-key="planPremiumFeat2">5+ exclusive categories</span></li>
+                    <li class="flex items-center"><span class="text-purple-500 mr-2">✔</span><span data-key="planPremiumFeat3">Beautiful image quotes</span></li>
+                    <li class="flex items-center"><span class="text-purple-500 mr-2">✔</span><span data-key="planPremiumFeat4">Downloadable images</span></li>
+                    <li class="flex items-center"><span class="text-purple-500 mr-2">✔</span><span data-key="planPremiumFeat5">Save favorite quotes</span></li>
+                </ul>
+                <button data-plan="premium" class="subscribe-btn shine-button mt-8 w-full bg-purple-600 text-white font-bold py-3 rounded-lg" data-key="subscribeBtn">Subscribe</button>
+            </div>
+            <div id="plan-vip" class="glass-card p-8 flex flex-col border-2 border-transparent animate-fade-in-up" style="animation-delay: 0.6s;">
+                <h2 class="text-2xl font-bold text-amber-400" data-key="planVipTitle">VIP</h2>
+                <p class="text-4xl font-black my-4">$10<span class="text-lg text-slate-400">/mo</span></p>
+                <p class="text-slate-400 mb-6" data-key="planVipDesc">The ultimate personalized experience.</p>
+                <ul class="space-y-3 text-slate-300 flex-grow">
+                    <li class="flex items-center"><span class="text-amber-400 mr-2">✔</span><span data-key="planVipFeat1">Everything in Premium</span></li>
+                    <li class="flex items-center"><span class="text-amber-400 mr-2">✔</span><span data-key="planVipFeat2">AI-powered personalized quotes</span></li>
+                    <li class="flex items-center"><span class="text-amber-400 mr-2">✔</span><span data-key="planVipFeat3">Create your own collections</span></li>
+                    <li class="flex items-center"><span class="text-amber-400 mr-2">✔</span><span data-key="planVipFeat4">Exclusive themes</span></li>
+                </ul>
+                <button data-plan="vip" class="subscribe-btn shine-button mt-8 w-full bg-amber-500 text-slate-900 font-bold py-3 rounded-lg" data-key="subscribeBtn">Subscribe</button>
+            </div>
+        </div>
+        <div class="mt-12 text-center">
+            <a href="index.html" class="text-slate-400 hover:text-white transition-colors" data-key="backToQuotes">&larr; Back to quotes</a>
+        </div>
+    </div>
+
+    <div id="music-player" class="fixed bottom-4 right-4 z-30">
+        <button id="music-toggle-btn" class="glass-card-footer p-3 rounded-full hover:bg-slate-700/80 transition-colors shadow-lg">
+            <i data-lucide="play" class="w-6 h-6"></i>
+        </button>
+        <audio id="lofi-audio" loop src="../audio/lofi.mp3"></audio>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="container mx-auto max-w-4xl glass-card-footer p-6">
+            <h3 class="text-xl font-bold mb-4" data-key="footerFollow">Follow Us</h3>
+            <div class="flex justify-center items-center gap-6 mb-6">
+                <a href="#" class="social-link" title="TikTok"><i data-lucide="music-4"></i></a>
+                <a href="#" class="social-link" title="Instagram"><i data-lucide="instagram"></i></a>
+                <a href="#" class="social-link" title="YouTube"><i data-lucide="youtube"></i></a>
+            </div>
+            <p class="text-sm text-slate-500">&copy; 2025 MakeYourDay. All Rights Reserved.</p>
+            <p class="text-xs text-slate-600 mt-2">Designed with passion for daily inspiration.</p>
+        </div>
+    </footer>
+    
+    <script src="../js/script.js"></script>
+</body>
+</html>
